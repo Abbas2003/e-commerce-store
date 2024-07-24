@@ -8,6 +8,25 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
+<style>
+    .icon-cart {
+        position: relative;
+    }
+    .icon-cart span {
+        display: flex;
+        width: 25px;
+        height: 25px;
+        background-color: red;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 47%;
+        right: -16px;
+    }
+</style>
+
 <body class="bg-gray-100">
 
     <section>
@@ -30,9 +49,12 @@
                 <div class="text-xl font-semibold text-gray-700">
                     <a href="#" class="text-gray-800">Sasta Bazar</a>
                 </div>
-                <div>
+                <div class="flex justify-between items-center">
                     <a href="#" class="text-gray-600 hover:text-gray-800 mx-4">Home</a>
-                    <a href="./pages/cart/cart.html" class="text-gray-600 hover:text-gray-800 mx-4">Cart</a>
+                    <a href="./pages/cart/cart.html" class="text-gray-600 hover:text-gray-800 mx-4 icon-cart"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+                      </svg><span id="cartCount">0</span>
+                      </a>
                     <a id="uploadLink" href="./pages/productupload/productupload.html"
                         class="text-gray-600 hidden hover:text-gray-800 mx-4">Upload Product</a>
                     <a id="loginLink" href="pages/login/login.html"
@@ -47,7 +69,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="bg-cover bg-center h-screen" style="background-image: url('https://via.placeholder.com/1500');">
+    <header class="bg-cover bg-center h-screen" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtYw-K8aSoMEow9xLbUifWVdTKNgRFeJbcIQ&s');">
         <div class="flex items-center justify-center h-full bg-gray-900 bg-opacity-50">
             <div class="text-center text-white">
                 <h1 class="text-5xl font-bold mb-4">Welcome to Our Store</h1>
@@ -60,7 +82,7 @@
     <!-- Featured Products Section -->
     <section class="container mx-auto px-6 py-10">
         <h2 class="text-3xl font-bold text-center mb-8">Featured Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="productParent">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="productParent">
             <!-- Product Card -->
             <div class="bg-white rounded-lg overflow-hidden shadow-md">
                 <img src="https://via.placeholder.com/400" alt="Product Image" class="w-full h-56 object-cover">
