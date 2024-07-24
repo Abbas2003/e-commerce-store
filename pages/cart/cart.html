@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 p-6">
+    
+    <h1 class="text-2xl font-bold mb-4">Shopping Cart</h1>
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded shadow">
+
+        <!-- Cart items -->
+        <div class="divide-y divide-gray-200">
+            <!-- Item 1 -->
+            <div class="flex py-4 items-center">
+                <div class="flex-shrink-0">
+                    <img src="https://via.placeholder.com/150" alt="Product image" class="h-16 w-16 rounded">
+                </div>
+                <div class="ml-4 flex-1">
+                    <div class="flex justify-between">
+                        <h2 class="text-lg font-semibold">Product Name</h2>
+                        <p class="text-gray-600">$24.99</p>
+                    </div>
+                    <p class="text-gray-500">Quantity: 1</p>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="flex py-4 items-center">
+                <div class="flex-shrink-0">
+                    <img src="https://via.placeholder.com/150" alt="Product image" class="h-16 w-16 rounded">
+                </div>
+                <div class="ml-4 flex-1">
+                    <div class="flex justify-between">
+                        <h2 class="text-lg font-semibold">Another Product</h2>
+                        <p class="text-gray-600">$19.99</p>
+                    </div>
+                    <p class="text-gray-500">Quantity: 2</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart summary -->
+        <div class="mt-8">
+            <div class="flex justify-between items-center">
+                <p class="text-lg font-semibold">Total:</p>
+                <p class="text-xl font-bold">$44.97</p>
+            </div>
+            <button
+                class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Checkout</button>
+        </div>
+    </div>
+</body>
+
+</html>
