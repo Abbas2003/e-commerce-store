@@ -60,22 +60,23 @@
                     </select>
                 </div>
                 <!-- Product Image -->
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="productImage">
                         Product Image
                     </label>
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="productImage" type="text">
-                </div>
+                </div> -->
                 <!-- Product Image -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="productImage">
                         Product Image
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="productFile" type="file" onchange="uploadFile()">
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="productFile" type="file">
+                    <progress max="100" value="0" id="prog"></progress>
                 </div>
                 <!-- Submit Button -->
                 <div class="flex items-center justify-between">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onclick="uploadProduct()">
                         Upload Product
                     </button>
                 </div>
