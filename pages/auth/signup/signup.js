@@ -3,21 +3,20 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/fireba
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
 import {
   getAuth,
-  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 import {
   getFirestore,
   doc,
-  getDoc,
+  setDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
-
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  
+  // Enter your firebase project config here
 };
 
 // Initialize Firebase
@@ -26,28 +25,35 @@ const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = getFirestore();
 
+let username = document.getElementById("username");
 let email = document.getElementById("email");
 let password = document.getElementById("password");
 
-window.loginUser = () => {
+window.signupUser = () => {
   let obj = {
+    username: username.value,
     email: email.value,
     password: password.value,
   };
-  signInWithEmailAndPassword(auth, obj.email, obj.password)
-    .then(async (res) => {
-      const id = res.user.uid;
-      const reference = doc(db, "users", id);
-      const snap = await getDoc(reference)
-      if(snap.exists()){
-        localStorage.setItem("user", JSON.stringify(snap.data()))
-        console.log(res, "Success");
-        window.location.replace("../../index.html")
-      } else {
-        alert("Data Not Found")
-      }
+  console.log(obj);
+
+  createUserWithEmailAndPassword(auth, obj.email, obj.password)
+  .then((res)=>{
+    obj.id = res.user.uid;
+    obj.userType = "user";
+
+    const reference = doc(db, "users", obj.id)
+    setDoc(reference, obj)
+    .then(()=>{
+      const userObj = JSON.stringify(obj)
+      localStorage.setItem("user", userObj)
+      window.location.replace('../login/login.html')
     })
-    .catch((err) => {
-      alert(err.message);
-    });
+    .catch((e)=>{
+      alert("E-message",e.message)
+    })
+  })
+  .catch((err)=>{
+    alert("Error-message",err.message)
+  })
 };

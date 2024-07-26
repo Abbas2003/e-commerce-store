@@ -8,7 +8,7 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebas
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
- 
+  // Enter your firebase project config here
 };
 
 // Initialize Firebase
