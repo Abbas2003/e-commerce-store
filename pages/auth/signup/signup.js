@@ -59,7 +59,9 @@ window.signupUser = () => {
     .then(()=>{
       const userObj = JSON.stringify(obj)
       localStorage.setItem("user", userObj)
-      window.location.replace('../login/login.html')
+      setTimeout(() => {
+        window.location.replace('../login/login.html');
+      }, 3000); 
     })
     .catch((e)=>{
       alert("E-message",e.message)

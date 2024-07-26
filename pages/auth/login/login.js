@@ -53,7 +53,10 @@ window.loginUser = () => {
           title: 'Loged In!',
           text: 'You have successfully log in!',
         })
-        window.location.replace("../../../index.html")
+        setTimeout(() => {
+          window.location.replace("../../../index.html");
+        }, 3000);
+        
       } else {
         alert("Data Not Found")
       }

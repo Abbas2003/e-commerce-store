@@ -134,6 +134,7 @@ window.logout = () => {
       init();
       localStorage.removeItem("user");
       localStorage.removeItem("cart");
+      location.reload();
     })
     .catch((err) => {
       alert(err.message);
@@ -192,13 +193,13 @@ window.toggleWishlist = (element, productId) => {
     wishlist.push(productId);
     element.classList.remove('far'); // Change star to filled
     element.classList.add('fas', 'text-yellow-500'); // Change color to yellow
-    // notification.innerText = "Product added to wishlist!";
+    notification.innerText = "Product added to wishlist!";
   } else {
     // Remove from wishlist
     wishlist.splice(index, 1);
     element.classList.remove('fas', 'text-yellow-500'); // Remove filled star
     element.classList.add('far'); // Revert to outline
-    // notification.innerText = "Product removed from wishlist!";
+    notification.innerText = "Product removed from wishlist!";
   }
 
   // Update localStorage
