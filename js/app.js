@@ -16,7 +16,13 @@ import {
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  // Enter your firebase project config here
+  apiKey: "AIzaSyBMIwK08KN7BdwtmzF50B12qzVmQQkHCQ4",
+  authDomain: "sastabazar-99.firebaseapp.com",
+  projectId: "sastabazar-99",
+  storageBucket: "sastabazar-99.appspot.com",
+  messagingSenderId: "60480813993",
+  appId: "1:60480813993:web:9ad8127cd27b98125a22b8",
+  measurementId: "G-34S1GPK2XG"
 };
 
 
@@ -70,20 +76,35 @@ getProducts();
 let renderProducts = () => {
   productParent.innerHTML = "";
   products.forEach((x) => {
-    const productElement = document.createElement('div');
-    productElement.classList.add('product');
-    productElement.setAttribute('data-id', x.id);
-    productParent.innerHTML += `<div id="${x.id}" class="bg-white rounded-lg overflow-hidden shadow-md">
+
+    productParent.innerHTML += `<div id="${x.id}" onclick="getId('${x.id}')" class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
                 <img src="${x.productImage}" alt="Product Image" class="w-full h-56 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">${x.productName}</h3>
-                    <p class="text-gray-600 mb-4">$${x.productPrice}</p>
-                    <button onclick="addToCart(this)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add to cart</button>
+                <div class="p-5">
+                    <h3 class="text-2xl font-bold mb-2">${x.productName}</h3>
+                    <div class="flex justify-between items-center">
+                      <p class="text-gray-600 mb-4">$${x.productPrice}</p>
+                      <div class="flex space-x-2">
+                        <p class="text-gray-600 mb-4">Add to wishlist</p>
+                        <i class="far fa-star text-gray-400 hover:text-yellow-500 cursor-pointer text-xl" onclick="toggleWishlist(this, '${x.id}')"></i>
+                      </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <button onclick="addToCart(this)" class="hover:bg-blue-500 hover:text-white rounded-full text-black font-semibold py-2 px-4">Add to cart</button>
+                      <button class=" hover:bg-blue-500 hover:text-white text-black font-semibold py-2 px-4 rounded-full"><a href="../pages/reviews/reviews.html" class="">Reviews</a></button>
+                      
+                    </div>
                 </div>
             </div>`;
-    productParent.appendChild(productElement);
+
   });
 };
+
+
+window.getId = (id) => {
+  localStorage.setItem('productId', id)
+  console.log(id);
+}
+
 
 function init() {
   let userObj = localStorage.getItem('user');
@@ -119,6 +140,20 @@ window.logout = () => {
     });
 };
 
+// Function to show the cart notification
+function showCartNotification() {
+  const notification = document.getElementById('cart-notification');
+  notification.style.opacity = '1';
+  notification.style.visibility = 'visible';
+
+  // Hide the notification after 3 seconds
+  setTimeout(() => {
+    notification.style.opacity = '0';
+    notification.style.visibility = 'hidden';
+  }, 3000);
+}
+
+// Updated addToCart function to include the notification
 window.addToCart = (productId) => {
   const userObj = JSON.parse(localStorage.getItem('user'));
   if (!userObj) {
@@ -136,5 +171,65 @@ window.addToCart = (productId) => {
   cart.push({ userId: userObj.id, ...product });
   localStorage.setItem('cart', JSON.stringify(cart));
 
+  // Show the notification
+  showCartNotification();
+
   init();
 };
+
+// wishlist.js
+
+// Check if wishlist exists in localStorage
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+// Function to toggle wishlist
+window.toggleWishlist = (element, productId) => {
+  const index = wishlist.indexOf(productId);
+  const notification = document.getElementById('wishlist-notification');
+
+  if (index === -1) {
+    // Add to wishlist
+    wishlist.push(productId);
+    element.classList.remove('far'); // Change star to filled
+    element.classList.add('fas', 'text-yellow-500'); // Change color to yellow
+    // notification.innerText = "Product added to wishlist!";
+  } else {
+    // Remove from wishlist
+    wishlist.splice(index, 1);
+    element.classList.remove('fas', 'text-yellow-500'); // Remove filled star
+    element.classList.add('far'); // Revert to outline
+    // notification.innerText = "Product removed from wishlist!";
+  }
+
+  // Update localStorage
+  localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
+  // Show notification
+  showNotification(notification);
+}
+
+// Function to show notification
+function showNotification(notification) {
+  notification.classList.remove('hidden');
+  setTimeout(() => {
+    notification.classList.add('hidden');
+  }, 2000);
+}
+
+// Initialize stars based on wishlist
+window.onload = () => {
+  document.querySelectorAll('.fa-star').forEach(star => {
+    const productId = star.getAttribute('onclick').split("'")[1];
+    if (wishlist.includes(productId)) {
+      star.classList.remove('far');
+      star.classList.add('fas', 'text-yellow-500');
+    }
+  });
+};
+
+
+// JavaScript to handle mobile menu toggle
+document.getElementById('menu-button').addEventListener('click', function () {
+  const mobileMenu = document.getElementById('mobile-menu');
+  mobileMenu.classList.toggle('hidden');
+});

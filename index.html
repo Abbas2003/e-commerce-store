@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Commerce Landing Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <style>
@@ -23,48 +24,90 @@
         border-radius: 50%;
         position: absolute;
         top: 47%;
-        right: -16px;
+        right: -10px;
     }
+    .icon-cart-mb span {
+        display: flex;
+        width: 25px;
+        height: 25px;
+        background-color: red;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 24%;
+        left: 50%;
+    }
+
+    /* Cart Notification Style */
+    .cart-notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: rgba(0, 128, 0, 0.8); /* Green background */
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+        z-index: 1000;
+    }
+
 </style>
 
 <body class="bg-gray-100">
 
-    <section>
-        <!-- Mini Cart -->
-        <div id="miniCart" class="hidden fixed top-0 right-0 mt-16 mr-4 w-80 bg-white shadow-lg p-4 rounded">
-            <h2 class="text-lg font-semibold mb-4">Your Cart</h2>
-            <div id="cartItems"></div>
-            <div class="flex justify-between mt-4">
-                <span>Total:</span>
-                <span id="cartTotal">$0.00</span>
-            </div>
-            <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Checkout</button>
-        </div>
-    </section>
+   
 
     <!-- Navbar -->
     <nav class="bg-white shadow-md">
-        <div class="container mx-auto px-6 py-3">
-            <div class="flex justify-between items-center">
-                <div class="text-xl font-semibold text-gray-700">
-                    <a href="#" class="text-gray-800">Sasta Bazar</a>
-                </div>
-                <div class="flex justify-between items-center">
-                    <a href="#" class="text-gray-600 hover:text-gray-800 mx-4">Home</a>
-                    <a href="./pages/cart/cart.html" class="text-gray-600 hover:text-gray-800 mx-4 icon-cart"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
-                      </svg><span id="cartCount">0</span>
-                      </a>
-                    <a id="uploadLink" href="./pages/productupload/productupload.html"
-                        class="text-gray-600 hidden hover:text-gray-800 mx-4">Upload Product</a>
-                    <a id="loginLink" href="./pages/auth/login/login.html"
-                        class="text-gray-600 hover:text-gray-800 mx-4">Login</a>
-                    <a id="signupLink" href="./pages/auth/signup/signup.html"
-                        class="text-gray-600 hover:text-gray-800 mx-4">Signup</a>
-                    <button onclick="logout()" id="logoutBtn" 
-                        class="text-white mx-4 hidden bg-blue-500 p-2 rounded">Logout</button>
-                </div>
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-2xl tracking-wide font-semibold">
+                <a href="#" class="text-gray-800 font-serif">SastaBazar</a>
             </div>
+
+            <!-- Hamburger Icon -->
+            <div class="lg:hidden flex items-center">
+                <button id="menu-button" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Navbar Links -->
+            <div id="menu" class="hidden lg:flex lg:items-center lg:space-x-4">
+                <a href="#" class="text-gray-600 hover:text-gray-800">Home</a>
+                <a href="./pages/cart/cart.html" class="icon-cart text-gray-600 hover:text-gray-800 flex items-center ">
+                    <svg class="w-6 h-6 text-gray-800 mr-1 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+                    </svg>
+                    <span id="cartCount">0</span>
+                </a>
+                <a id="uploadLink" href="./pages/productupload/productupload.html" class="text-gray-600 hidden hover:text-gray-800">Upload Product</a>
+                <a id="loginLink" href="./pages/auth/login/login.html" class="text-gray-600 hover:text-gray-800">Login</a>
+                <a id="signupLink" href="./pages/auth/signup/signup.html" class="text-gray-600 hover:text-gray-800">Signup</a>
+                <button onclick="logout()" id="logoutBtn" class="text-white bg-blue-500 p-2 rounded hidden">Logout</button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden bg-white shadow-md mt-2 grid justify-items-center">
+            <a href="#" class="block text-gray-600 hover:text-gray-800 px-4 py-2">Home</a>
+            <a href="./pages/cart/cart.html" class="icon-cart-mb text-gray-600 hover:text-gray-800 px-4 py-2 flex items-center">
+                <svg class="w-6 h-6 text-gray-800 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+                </svg>
+                <span id="cartCountMobile">0</span>
+            </a>
+            <a id="uploadLinkMobile" href="./pages/productupload/productupload.html" class="block text-gray-600 hover:text-gray-800 px-4 py-2 hidden">Upload Product</a>
+            <a id="loginLinkMobile" href="./pages/auth/login/login.html" class="block text-gray-600 hover:text-gray-800 px-4 py-2">Login</a>
+            <a id="signupLinkMobile" href="./pages/auth/signup/signup.html" class="block text-gray-600 hover:text-gray-800 px-4 py-2">Signup</a>
+            <button onclick="logout()" id="logoutBtnMobile" class="block text-white bg-blue-500 p-2 rounded mx-4 my-2 hidden">Logout</button>
         </div>
     </nav>
 
@@ -81,62 +124,63 @@
 
     <!-- Featured Products Section -->
     <section class="container mx-auto px-6 py-10">
-        <h2 class="text-3xl font-bold text-center mb-8">Featured Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="productParent">
-            <!-- Product Card -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="https://via.placeholder.com/400" alt="Product Image" class="w-full h-56 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">Product Name</h3>
-                    <p class="text-gray-600 mb-4">$29.99</p>
-                    <button onclick="addToCart(this)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add to cart</button>
-                </div>
+            <h2 class="text-5xl font-extrabold text-center mb-12">
+                Featured Products
+                <span class="block mt-4 h-1 bg-blue-500 w-24 mx-auto"></span>
+            </h2>
+        
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="productParent">
+
+            
             </div>
-            <!-- Repeat for more products -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="https://via.placeholder.com/400" alt="Product Image" class="w-full h-56 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">Product Name</h3>
-                    <p class="text-gray-600 mb-4">$39.99</p>
-                    <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Buy Now</a>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="https://via.placeholder.com/400" alt="Product Image" class="w-full h-56 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">Product Name</h3>
-                    <p class="text-gray-600 mb-4">$49.99</p>
-                    <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Buy Now</a>
-                </div>
-            </div>
+            
+
+        <!-- Cart Notification -->
+        <div id="cart-notification" class="cart-notification">
+            Item has been added to the cart!
         </div>
+
+        <!-- Wishlist Notification -->
+        <div id="wishlist-notification" class="hidden fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded shadow-lg">
+            Product added to wishlist!
+        </div>
+  
     </section>
 
     <!-- CTA Section -->
-    <section class="bg-blue-500 text-white py-10">
+    <section class="bg-gradient-to-r from-blue-500 text-white py-10">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-4xl font-bold mb-4">Join Our Newsletter</h2>
             <p class="mb-6">Stay updated with the latest news and deals!</p>
-            <form class="flex justify-center">
-                <input type="email" class="w-1/3 p-2 rounded-l-lg focus:outline-none" placeholder="Enter your email">
+            <div class="flex justify-center">
+                <input type="email" class="w-1/3 p-2 rounded-l-lg focus:outline-none text-black" placeholder="Enter your email">
                 <button type="submit"
                     class="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-r-lg">Subscribe</button>
-            </form>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-6">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-between items-center">
-                <div>&copy; 2024 BrandName. All rights reserved.</div>
-                <div>
-                    <a href="#" class="text-gray-400 hover:text-gray-200 mx-2">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-gray-200 mx-2">Terms of Service</a>
-                </div>
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <!-- Copyright Section -->
+            <div class="text-center md:text-left mb-4 md:mb-0">
+                &copy; 2024 SastaBazar. All rights reserved.
+            </div>
+            <!-- Developed by Section -->
+            <div class="mb-4 md:mb-0">
+                Developed by <a href="https://www.linkedin.com/in/mohammad-abbas-dev" target="_blank" class="text-blue-600 hover:text-blue-400">M.Abbas</a>
+            </div>
+            <!-- Links Section -->
+            <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+                <a href="#" class="text-gray-400 hover:text-gray-200 mx-2">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-gray-200 mx-2">Terms of Service</a>
             </div>
         </div>
+    </div>
     </footer>
+
 
     <script type="module" src="js/app.js"></script>
 </body>

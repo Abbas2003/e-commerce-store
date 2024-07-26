@@ -17,7 +17,13 @@ import {
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  // Enter your firebase project config here
+  apiKey: "AIzaSyBMIwK08KN7BdwtmzF50B12qzVmQQkHCQ4",
+  authDomain: "sastabazar-99.firebaseapp.com",
+  projectId: "sastabazar-99",
+  storageBucket: "sastabazar-99.appspot.com",
+  messagingSenderId: "60480813993",
+  appId: "1:60480813993:web:9ad8127cd27b98125a22b8",
+  measurementId: "G-34S1GPK2XG"
 };
 
 // Initialize Firebase
@@ -42,12 +48,21 @@ window.loginUser = () => {
       if(snap.exists()){
         localStorage.setItem("user", JSON.stringify(snap.data()))
         console.log(res, "Success");
+        Swal.fire({
+          icon: 'success',
+          title: 'Loged In!',
+          text: 'You have successfully log in!',
+        })
         window.location.replace("../../../index.html")
       } else {
         alert("Data Not Found")
       }
     })
     .catch((err) => {
-      alert(err.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Invalid email or password',
+      });
     });
 };

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Product Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../productupload.html" class="text-xl font-semibold text-gray-800">Admin Dashboard</a>
+            <div>
+                <a href="../productupload.html" class="text-gray-600 hover:text-gray-800 mx-4">Dashboard</a>
+                <a href="./products/" class="text-gray-600 hover:text-gray-800 mx-4">Products</a>
+                <a href="#" class="text-gray-600 hover:text-gray-800 mx-4">Orders</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-10">
+        <div class="bg-white shadow-md rounded-lg p-8 max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-center">All Products</h2>
+            
+            <!-- Search Input -->
+            <div class="mb-4">
+                <input type="text" id="searchInput" class="w-full p-2 border border-gray-300 rounded" placeholder="Search products...">
+            </div>
+
+            <!-- Product Table -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-700">
+                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left">Product Image</th>
+                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left">Product Name</th>
+                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left">Price</th>
+                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+                        <!-- Product rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="./products.js"></script>
+</body>
+
+</html>

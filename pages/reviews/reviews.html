@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product review</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<style>
+     /* review Notification Style */
+     .review-notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: rgba(10, 64, 91, 0.8); /* Green background */
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+        z-index: 1000;
+    }
+
+</style>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../../index.html" class="text-xl font-semibold text-gray-800">SastaBazar</a>
+            <div>
+                <a href="#" class="text-gray-600 hover:text-gray-800 mx-4">Dashboard</a>
+                <a href="#" class="text-gray-600 hover:text-gray-800 mx-4">Products</a>
+                <a href="#" class="text-gray-600 hover:text-gray-800 mx-4">Orders</a>
+                <a href="#" class="text-gray-600 hover:text-gray-800 mx-4">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-10">
+        <div class="bg-white shadow-md rounded-lg p-8 max-w-2xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-center">Product Description & Reviews</h2>
+
+                <!-- Product Description -->
+                <section id="product-description" class="mb-8">
+                    <h1 class="text-3xl font-bold mb-4">Product Name</h1>
+                    <img src="" alt="Product Image" class="w-full h-64 object-cover rounded mb-4">
+                    <p class="text-xl text-blue-600 font-semibold">$49.99</p>
+                    <p class="text-gray-700 mt-4">This is a detailed description of the product, highlighting its features, benefits, and specifications.</p>
+                </section>
+
+                <!-- Reviews Section -->
+                <section id="reviews" class="mb-8">
+                    <h2 class="text-2xl font-bold mb-4">Customer Reviews</h2>
+                    <div id="review-list">
+                        <!-- Reviews will be inserted here by JavaScript -->
+                    </div>
+                </section>
+
+                <!-- Review Form -->
+                <section id="review-form">
+                    <h2 class="text-2xl font-bold mb-4">Write a Review</h2>
+                    <form id="add-review-form" class="space-y-4">
+                        <div>
+                            <label for="reviewer-name" class="block text-gray-700 font-semibold">Your Name:</label>
+                            <input type="text" id="reviewer-name" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+                        </div>
+                        <div>
+                            <label for="review-text" class="block text-gray-700 font-semibold">Your Review:</label>
+                            <textarea id="review-text" class="w-full p-2 border border-gray-300 rounded mt-1" rows="4" required></textarea>
+                        </div>
+                        <button type="submit"  class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Submit Review</button>
+                    </form>
+                </section>
+
+                 <!-- review Notification -->
+                <div id="review-notification" class="review-notification">
+                    Your review has been added.
+                    <p>
+                        Thank you!
+                    </p>
+                </div>
+        </div>
+    </main>
+
+    
+    <script type="module" src="./reviews.js"></script>
+</body>
+</html>

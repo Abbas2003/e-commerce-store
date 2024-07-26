@@ -16,7 +16,13 @@ import {
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  // Enter your firebase project config here
+  apiKey: "AIzaSyBMIwK08KN7BdwtmzF50B12qzVmQQkHCQ4",
+  authDomain: "sastabazar-99.firebaseapp.com",
+  projectId: "sastabazar-99",
+  storageBucket: "sastabazar-99.appspot.com",
+  messagingSenderId: "60480813993",
+  appId: "1:60480813993:web:9ad8127cd27b98125a22b8",
+  measurementId: "G-34S1GPK2XG"
 };
 
 // Initialize Firebase
@@ -42,6 +48,12 @@ window.signupUser = () => {
     obj.id = res.user.uid;
     obj.userType = "user";
 
+    Swal.fire({
+      icon: 'success',
+      title: 'Loged In!',
+      text: 'You have successfully sign up!',
+    })
+
     const reference = doc(db, "users", obj.id)
     setDoc(reference, obj)
     .then(()=>{
@@ -54,6 +66,11 @@ window.signupUser = () => {
     })
   })
   .catch((err)=>{
-    alert("Error-message",err.message)
+    console.log("Error-message",err.message)
+    Swal.fire({
+      icon: 'warning',
+      title: 'Required',
+      text: 'Please enter all fields',
+    });
   })
 };
