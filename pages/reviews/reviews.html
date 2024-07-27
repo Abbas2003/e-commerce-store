@@ -23,37 +23,67 @@
         z-index: 1000;
     }
 
+
+
 </style>
 <body class="bg-gray-100">
+
     <!-- Navbar -->
     <nav class="bg-white shadow-md">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="../../index.html" class="text-xl font-semibold text-gray-800">SastaBazar</a>
-            <div>
-                <a href="#" class="text-gray-600 hover:text-gray-800 mx-4">Dashboard</a>
-                <a href="#" class="text-gray-600 hover:text-gray-800 mx-4">Products</a>
-                <a href="#" class="text-gray-600 hover:text-gray-800 mx-4">Orders</a>
-                <a href="#" class="text-gray-600 hover:text-gray-800 mx-4">Logout</a>
+            <!-- Logo -->
+            <div class="text-2xl tracking-wide font-semibold">
+                <a href="../../index.html" class="text-gray-800 font-serif">SastaBazar</a>
             </div>
+
+            <!-- Hamburger Icon -->
+            <div class="lg:hidden flex items-center">
+                <button id="menu-button" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Navbar Links -->
+            <div id="menu" class="hidden lg:flex lg:items-center lg:space-x-4">
+                <a href="../../index.html" class="text-gray-600 hover:text-gray-800">Home</a>
+                <a href="#" class="text-gray-600 hover:text-gray-800 flex items-center ">
+                    Dashboard
+                </a>
+                <a id="uploadLink" href="./pages/productupload/productupload.html" class="text-gray-600 hidden hover:text-gray-800">Upload Product</a>
+                <a id="productsLink" href="../productupload/products/products.html" class="text-gray-600 hover:text-gray-800">Products</a>
+                <a href="#" class="text-gray-600 hover:text-gray-800">Orders</a>
+                <button onclick="logout()" id="logoutBtn" class="text-white bg-blue-500 p-2 rounded hidden">Logout</button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden bg-white shadow-md mt-2 grid justify-items-center">
+            <a href="../../index.html" class="block text-gray-600 hover:text-gray-800 px-4 py-2">Home</a>
+            <a href="../../index.html" class="block text-gray-600 hover:text-gray-800 px-4 py-2">Dashboard</a>
+            <a id="uploadLinkMobile" href="../productupload/productupload.html" class="block text-gray-600 hover:text-gray-800 px-4 py-2">Upload Product</a>
+            <a id="productsLinkMobile" href="../productupload/products/products.html" class="text-gray-600 hover:text-gray-800 px-4 py-2">Products</a>
+            <a href="#" class="block text-gray-600 hover:text-gray-800 px-4 py-2">Orders</a>
+            <button onclick="logout()" id="logoutBtnMobile" class="block text-white bg-blue-500 p-2 rounded mx-4 my-2 hidden">Logout</button>
         </div>
     </nav>
 
+
+      
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-10">
         <div class="bg-white shadow-md rounded-lg p-8 max-w-2xl mx-auto">
-            <h2 class="text-3xl font-bold mb-6 text-center">Product Description & Reviews</h2>
+            <h2 class="text-xl md:text-3xl lg:text-3xl  font-bold mb-6 text-center">Product Description & Reviews</h2>
 
                 <!-- Product Description -->
                 <section id="product-description" class="mb-8">
-                    <h1 class="text-3xl font-bold mb-4">Product Name</h1>
-                    <img src="" alt="Product Image" class="w-full h-64 object-cover rounded mb-4">
-                    <p class="text-xl text-blue-600 font-semibold">$49.99</p>
-                    <p class="text-gray-700 mt-4">This is a detailed description of the product, highlighting its features, benefits, and specifications.</p>
+                    
                 </section>
 
                 <!-- Reviews Section -->
                 <section id="reviews" class="mb-8">
-                    <h2 class="text-2xl font-bold mb-4">Customer Reviews</h2>
+                    <h2 class="text-2xl font-bold text-center mb-4 md:text-3xl md:font-extrabold">Customer Reviews</h2>
                     <div id="review-list">
                         <!-- Reviews will be inserted here by JavaScript -->
                     </div>

@@ -9,6 +9,10 @@ import {
     query,
     collection
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+import {
+    getAuth,
+    signOut,
+  } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -30,11 +34,38 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore();
+const auth = getAuth()
 
 
 const id = localStorage.getItem('productId')
 console.log(id);
 
+function init() {
+    let productsLink = document.getElementById("productsLink")
+    let uploadLink = document.getElementById("uploadLink")
+    let productsLinkMobile = document.getElementById("productsLinkMobile")
+    let uploadLinkMobile = document.getElementById("uploadLinkMobile")
+    let userObj = localStorage.getItem('user');
+    userObj = JSON.parse(userObj);
+
+    if (userObj) {
+        if (userObj.userType === "user") {
+            productsLink.style.display = "none";
+            productsLinkMobile.style.display = "none";
+            uploadLink.style.display = "none";
+            uploadLinkMobile.style.display = "none";
+        }
+        if (userObj.userType === "admin") {
+            uploadLink.className = "text-gray-600 hover:text-gray-800 mx-4";
+            uploadLinkMobile.className = "text-gray-600 hover:text-gray-800 px-4 py-2";
+        }
+        logoutBtn.className = "text-white mx-4 inline-block bg-blue-500 p-2 rounded";
+        logoutBtnMobile.className = "text-white my-2 inline-block bg-blue-500 p-2 rounded";
+    }
+
+}
+
+init()
 
 let getProduct = async (id) => {
     try {
@@ -67,10 +98,10 @@ function renderProductDetails(product) {
 
     productContainer.innerHTML = `
       <h1 class="text-3xl font-bold mb-4">${product.productName}</h1>
-      <p><span class="text-gray-500 font-bold">Category:</span> ${product.productCategory}</p>
+      <p><span class="text-blue-500 font-bold">Category:</span> ${product.productCategory}</p>
       <img src="${product.productImage}" alt="${product.productName}" class="w-full h-64 object-cover rounded mb-4">
       <p class="text-xl text-blue-600 font-semibold">Price: $${product.productPrice}</p>
-      <p class="mt-4"><span class="text-gray-500 font-bold">Description:</span> ${product.productDescription}</p>
+      <p class="mt-4"><span class="text-blue-500 font-bold">Description:</span> ${product.productDescription}</p>
     `;
 }
 
@@ -112,7 +143,7 @@ addReviewForm.addEventListener('submit', async (event) => {
 
     try {
         // Assume productId is obtained from URL or elsewhere
-        const productId = "J0hiv4XWZTBmaq2zwFRL";
+        const productId = id;
 
         // Add a new document to the reviews subcollection for this product
         const docRef = await addDoc(collection(db, 'products', productId, 'reviews'), newReview);
@@ -163,3 +194,24 @@ function showReviewNotification() {
         notification.style.visibility = 'hidden';
     }, 3000);
 }
+
+
+// JavaScript to handle mobile menu toggle
+document.getElementById('menu-button').addEventListener('click', function () {
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenu.classList.toggle('hidden');
+});
+
+
+window.logout = () => {
+    signOut(auth)
+      .then(() => {
+        init();
+        localStorage.removeItem("user");
+        localStorage.removeItem("cart");
+        location.reload();
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };

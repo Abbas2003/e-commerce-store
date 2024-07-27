@@ -22,62 +22,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 
-// const cartParent = document.getElementById('cartParent')
-// const total = document.getElementById("total")
-// let cart = JSON.parse(localStorage.getItem('cart'));
-// let cartItems = cart.length
-// let sum = 0
-
-
-// function renderProducts() {
-//   console.log(cart);
-//   cartParent.innerHTML = ''
-//   if (cartItems > 0) {
-//     cart.forEach(product => {
-//       sum = sum + Number(product.productPrice)
-//       cartParent.innerHTML += `<div class="flex py-4 items-center">
-//       <div class="flex-shrink-0">
-//       <img src="${product.productImage}" alt="Product image" class="h-16 w-16 rounded">
-//       </div>
-//       <div class="ml-4 flex-1">
-//           <div class="flex justify-between">
-//               <h2 class="text-lg font-semibold">${product.productName}</h2>
-//               <p class="text-gray-600">$${product.productPrice}</p>
-//           </div>
-//           <div class="flex justify-between">
-//             <p class="text-gray-500">Quantity: 1</p>
-//             <button onclick="removeItem(this)" class="text-red-500 hover:text-red-600">Remove</button>
-//           </div/
-//         </div>
-//         </div>`
-//     });
-
-//   };
-
-//   total.innerHTML += `<div class="flex justify-between items-center">
-//       <p class="text-lg font-semibold">Total:</p>
-//       <p class="text-xl font-bold">$${sum}</p>
-//     </div>
-//     <button
-//     class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600" onclick="checkOutBtn()">Checkout
-//     </button>`
-
-// }
-// renderProducts()
-
-
-// window.checkOutBtn = () => {
-//   alert("Thank you for shopping")
-// }
-
-// window.removeItem = (productId) => {
-//   delete productId.parentNode.parentNode.parentNode
-//   // cart = cart.splice(productId, 1)
-//   // localStorage.setItem('cart', JSON.stringify(cart))
-// }
-
-
-
 
 // Get DOM elements
 const cartParent = document.getElementById('cartParent');
@@ -130,7 +74,23 @@ renderProducts();
 
 // Checkout button functionality
 window.checkOutBtn = () => {
-  alert("Thank you for shopping");
+  Swal.fire({
+    title: "Thank your for shopping.",
+    showClass: {
+      popup: `
+        animate__animated
+        animate__fadeInUp
+        animate__faster
+      `
+    },
+    hideClass: {
+      popup: `
+        animate__animated
+        animate__fadeOutDown
+        animate__faster
+      `
+    }
+  });
   // Clear cart after checkout
   localStorage.removeItem('cart');
   cart = [];

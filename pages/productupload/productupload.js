@@ -34,7 +34,6 @@ let productName = document.getElementById("productName")
 let productDescription = document.getElementById("productDescription")
 let productPrice = document.getElementById("productPrice")
 let productCategory = document.getElementById("productCategory")
-// let productImage = document.getElementById("productImage")
 let productFile = document.getElementById('productFile')
 let prog = document.getElementById('prog')
 

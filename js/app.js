@@ -35,9 +35,14 @@ const db = getFirestore();
 let loginLink = document.getElementById("loginLink");
 let uploadLink = document.getElementById("uploadLink");
 let signupLink = document.getElementById("signupLink");
+let signupLinkMobile = document.getElementById("signupLinkMobile")
+let loginLinkMobile = document.getElementById("loginLinkMobile")
+let uploadLinkMobile = document.getElementById("uploadLinkMobile")
 let logoutBtn = document.getElementById("logoutBtn");
+let logoutBtnMobile = document.getElementById("logoutBtnMobile");
 let productParent = document.getElementById("productParent");
 let cartCount = document.getElementById('cartCount');
+let cartCountMobile = document.getElementById('cartCountMobile');
 
 let cart = [];
 const products = [];
@@ -89,7 +94,7 @@ let renderProducts = () => {
                       </div>
                     </div>
                     <div class="flex justify-between items-center">
-                      <button onclick="addToCart(this)" class="hover:bg-blue-500 hover:text-white rounded-full text-black font-semibold py-2 px-4">Add to cart</button>
+                      <button onclick="addToCart(this)" id="${x.id}" class="hover:bg-blue-500 hover:text-white rounded-full text-black font-semibold py-2 px-4">Add to cart</button>
                       <button class=" hover:bg-blue-500 hover:text-white text-black font-semibold py-2 px-4 rounded-full"><a href="../pages/reviews/reviews.html" class="">Reviews</a></button>
                       
                     </div>
@@ -112,18 +117,23 @@ function init() {
 
   if (userObj) {
     loginLink.style.display = "none";
+    loginLinkMobile.style.display = "none";
     signupLink.style.display = "none";
+    signupLinkMobile.style.display = "none";
     if (userObj.userType === "user") {
       uploadLink.style.display = "none";
     }
     if (userObj.userType === "admin") {
       uploadLink.className = "text-gray-600 hover:text-gray-800 mx-4";
+      uploadLinkMobile.className = "text-gray-600 hover:text-gray-800 mx-4";
     }
     logoutBtn.className = "text-white mx-4 inline-block bg-blue-500 p-2 rounded";
+    logoutBtnMobile.className = "text-white my-3 inline-block bg-blue-500 p-2 rounded";
   }
 
   console.log("CART LENGTH: ", count);
   cartCount.innerText = count;
+  cartCountMobile.innerText = count;
 }
 
 init();
@@ -162,7 +172,8 @@ window.addToCart = (productId) => {
     return;
   }
 
-  const product = products.find(p => p.id === productId.parentNode.parentNode.id);
+  console.log(productId.id);
+  const product = products.find(p => p.id === productId.id);
   if (!product) {
     console.error('Product not found');
     return;
