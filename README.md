@@ -53,4 +53,3 @@ Feel free to fork this repository and submit pull requests. Contributions are al
 
 ---
 
-This README provides a complete overview of your project and its key features. Let me know if you'd like any changes!
